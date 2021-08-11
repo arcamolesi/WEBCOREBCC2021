@@ -1,0 +1,1 @@
+﻿Projeto WEB Core 5.0 elaborado nas aulas de Linguagem de Programação, no curso de BCC, no ano de 2021. 
