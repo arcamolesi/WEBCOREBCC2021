@@ -16,7 +16,8 @@ namespace WEBCOREBCC2021.Models.Dominio
         
         [Display(Name ="Produtor Rural")]
         public Agricultor produtor { get; set; }
-        
+        public int produtorId { get; set; }
+
         [Display(Name ="Hectares")]
         [DisplayFormat(DataFormatString = "{0:F2}", ApplyFormatInEditMode =true)]
         public float hectares { get; set; }
@@ -24,5 +25,7 @@ namespace WEBCOREBCC2021.Models.Dominio
         public string municipio { get; set; }
         public string bairro { get; set; }
         public int gps { get; set; }
+
+        public ICollection<InsumoArea> insumosarea { get; set; }
     }
 }

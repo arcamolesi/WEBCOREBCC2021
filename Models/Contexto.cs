@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WEBCOREBCC2021.Models.Dominio;
+using WEBCOREBCC2021.Models.Mapeamento;
 
 namespace WEBCOREBCC2021.Models
 {
@@ -15,6 +16,13 @@ namespace WEBCOREBCC2021.Models
         public DbSet<Area> Areas { get; set; }
         public DbSet<Insumo> Insumos { get; set; }
         public DbSet<InsumoArea> InsumosArea { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.ApplyConfiguration(new AgricultorMap());
+   
+        }
 
     }
 }
