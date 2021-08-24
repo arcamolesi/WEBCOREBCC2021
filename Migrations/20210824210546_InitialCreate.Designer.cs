@@ -10,8 +10,8 @@ using WEBCOREBCC2021.Models;
 namespace WEBCOREBCC2021.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20210818020040_Mapeamento")]
-    partial class Mapeamento
+    [Migration("20210824210546_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,15 +34,17 @@ namespace WEBCOREBCC2021.Migrations
                         .HasColumnType("nvarchar(25)");
 
                     b.Property<string>("cpf")
+                        .IsRequired()
                         .HasMaxLength(14)
                         .HasColumnType("nvarchar(14)");
 
                     b.Property<string>("email")
+                        .IsRequired()
                         .HasMaxLength(35)
                         .HasColumnType("nvarchar(35)");
 
                     b.Property<int>("idade")
-                        .HasColumnType("int");
+                        .HasColumnType("Int");
 
                     b.Property<string>("municipio")
                         .IsRequired()
@@ -56,6 +58,9 @@ namespace WEBCOREBCC2021.Migrations
 
                     b.HasKey("id");
 
+                    b.HasIndex("cpf")
+                        .IsUnique();
+
                     b.ToTable("Agricultores");
                 });
 
@@ -67,23 +72,27 @@ namespace WEBCOREBCC2021.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("bairro")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<int>("gps")
                         .HasColumnType("int");
 
-                    b.Property<float>("hectares")
-                        .HasColumnType("real");
+                    b.Property<double>("hectares")
+                        .HasColumnType("float");
 
                     b.Property<string>("municipio")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
-                    b.Property<int>("produtorId")
+                    b.Property<int>("produtorID")
                         .HasColumnType("int");
 
                     b.HasKey("id");
 
-                    b.HasIndex("produtorId");
+                    b.HasIndex("produtorID");
 
                     b.ToTable("Areas");
                 });
@@ -100,11 +109,14 @@ namespace WEBCOREBCC2021.Migrations
                         .HasMaxLength(35)
                         .HasColumnType("nvarchar(35)");
 
-                    b.Property<float>("quantidade")
-                        .HasColumnType("real");
+                    b.Property<double>("quantidade")
+                        .HasColumnType("float");
 
-                    b.Property<float>("valor")
-                        .HasColumnType("real");
+                    b.Property<int>("tipoinsumo")
+                        .HasColumnType("int");
+
+                    b.Property<double>("valor")
+                        .HasColumnType("float");
 
                     b.HasKey("id");
 
@@ -118,26 +130,26 @@ namespace WEBCOREBCC2021.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("areaid")
+                    b.Property<int>("areaID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("data")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("Date");
 
-                    b.Property<int?>("insumoid")
+                    b.Property<int>("insumoID")
                         .HasColumnType("int");
 
-                    b.Property<float>("quantidade")
-                        .HasColumnType("real");
+                    b.Property<double>("quantidade")
+                        .HasColumnType("float");
 
-                    b.Property<float>("valor")
-                        .HasColumnType("real");
+                    b.Property<double>("valor")
+                        .HasColumnType("float");
 
                     b.HasKey("id");
 
-                    b.HasIndex("areaid");
+                    b.HasIndex("areaID");
 
-                    b.HasIndex("insumoid");
+                    b.HasIndex("insumoID");
 
                     b.ToTable("InsumosArea");
                 });
@@ -146,8 +158,8 @@ namespace WEBCOREBCC2021.Migrations
                 {
                     b.HasOne("WEBCOREBCC2021.Models.Dominio.Agricultor", "produtor")
                         .WithMany("areas")
-                        .HasForeignKey("produtorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("produtorID")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("produtor");
@@ -156,12 +168,16 @@ namespace WEBCOREBCC2021.Migrations
             modelBuilder.Entity("WEBCOREBCC2021.Models.Dominio.InsumoArea", b =>
                 {
                     b.HasOne("WEBCOREBCC2021.Models.Dominio.Area", "area")
-                        .WithMany("insumosarea")
-                        .HasForeignKey("areaid");
+                        .WithMany("insumos")
+                        .HasForeignKey("areaID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("WEBCOREBCC2021.Models.Dominio.Insumo", "insumo")
                         .WithMany("areasinsumo")
-                        .HasForeignKey("insumoid");
+                        .HasForeignKey("insumoID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("area");
 
@@ -175,7 +191,7 @@ namespace WEBCOREBCC2021.Migrations
 
             modelBuilder.Entity("WEBCOREBCC2021.Models.Dominio.Area", b =>
                 {
-                    b.Navigation("insumosarea");
+                    b.Navigation("insumos");
                 });
 
             modelBuilder.Entity("WEBCOREBCC2021.Models.Dominio.Insumo", b =>

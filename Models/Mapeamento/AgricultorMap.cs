@@ -10,7 +10,6 @@ namespace WEBCOREBCC2021.Models.Mapeamento
 {
     public class AgricultorMap : IEntityTypeConfiguration<Agricultor>
     {
-
         public void Configure(EntityTypeBuilder<Agricultor> builder)
         {
             builder.HasKey(p => p.id);
@@ -23,8 +22,11 @@ namespace WEBCOREBCC2021.Models.Mapeamento
             builder.Property(p => p.cpf).HasMaxLength(14).IsRequired();
             builder.HasIndex(p => p.cpf).IsUnique();
 
-            builder.HasMany(p => p.areas).WithOne(p => p.produtor).HasForeignKey(p => p.produtorId).OnDelete(DeleteBehavior.NoAction); 
+            builder.HasMany(p => p.areas).WithOne(p => p.produtor).HasForeignKey(p => p.produtorID).OnDelete(DeleteBehavior.NoAction);
 
+            builder.ToTable("Agricultores");
         }
+
+        
     }
 }

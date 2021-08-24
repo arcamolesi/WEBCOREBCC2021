@@ -16,9 +16,9 @@ namespace WEBCOREBCC2021.Migrations
                     proprietario = table.Column<string>(type: "nvarchar(35)", maxLength: 35, nullable: false),
                     bairro = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
                     municipio = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
-                    idade = table.Column<int>(type: "int", nullable: false),
-                    email = table.Column<string>(type: "nvarchar(35)", maxLength: 35, nullable: true),
-                    cpf = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: true)
+                    idade = table.Column<int>(type: "Int", nullable: false),
+                    email = table.Column<string>(type: "nvarchar(35)", maxLength: 35, nullable: false),
+                    cpf = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -31,9 +31,10 @@ namespace WEBCOREBCC2021.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    quantidade = table.Column<float>(type: "real", nullable: false),
-                    valor = table.Column<float>(type: "real", nullable: false)
+                    descricao = table.Column<string>(type: "nvarchar(35)", maxLength: 35, nullable: false),
+                    tipoinsumo = table.Column<int>(type: "int", nullable: false),
+                    quantidade = table.Column<double>(type: "float", nullable: false),
+                    valor = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -46,21 +47,20 @@ namespace WEBCOREBCC2021.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    produtorid = table.Column<int>(type: "int", nullable: true),
-                    hectares = table.Column<float>(type: "real", nullable: false),
-                    municipio = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    bairro = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    produtorID = table.Column<int>(type: "int", nullable: false),
+                    hectares = table.Column<double>(type: "float", nullable: false),
+                    bairro = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    municipio = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
                     gps = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Areas", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Areas_Agricultores_produtorid",
-                        column: x => x.produtorid,
+                        name: "FK_Areas_Agricultores_produtorID",
+                        column: x => x.produtorID,
                         principalTable: "Agricultores",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -69,43 +69,47 @@ namespace WEBCOREBCC2021.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    areaid = table.Column<int>(type: "int", nullable: true),
-                    insumoid = table.Column<int>(type: "int", nullable: true),
-                    data = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    quantidade = table.Column<float>(type: "real", nullable: false),
-                    valor = table.Column<float>(type: "real", nullable: false)
+                    areaID = table.Column<int>(type: "int", nullable: false),
+                    insumoID = table.Column<int>(type: "int", nullable: false),
+                    data = table.Column<DateTime>(type: "Date", nullable: false),
+                    quantidade = table.Column<double>(type: "float", nullable: false),
+                    valor = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_InsumosArea", x => x.id);
                     table.ForeignKey(
-                        name: "FK_InsumosArea_Areas_areaid",
-                        column: x => x.areaid,
+                        name: "FK_InsumosArea_Areas_areaID",
+                        column: x => x.areaID,
                         principalTable: "Areas",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "id");
                     table.ForeignKey(
-                        name: "FK_InsumosArea_Insumos_insumoid",
-                        column: x => x.insumoid,
+                        name: "FK_InsumosArea_Insumos_insumoID",
+                        column: x => x.insumoID,
                         principalTable: "Insumos",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Areas_produtorid",
+                name: "IX_Agricultores_cpf",
+                table: "Agricultores",
+                column: "cpf",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Areas_produtorID",
                 table: "Areas",
-                column: "produtorid");
+                column: "produtorID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_InsumosArea_areaid",
+                name: "IX_InsumosArea_areaID",
                 table: "InsumosArea",
-                column: "areaid");
+                column: "areaID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_InsumosArea_insumoid",
+                name: "IX_InsumosArea_insumoID",
                 table: "InsumosArea",
-                column: "insumoid");
+                column: "insumoID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

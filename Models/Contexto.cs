@@ -10,7 +10,7 @@ namespace WEBCOREBCC2021.Models
 {
     public class Contexto:DbContext
     {
-        public Contexto(DbContextOptions<Contexto> options) : base(options) { }
+        public Contexto(DbContextOptions<Contexto> options): base(options) { }
 
         public DbSet<Agricultor> Agricultores { get; set; }
         public DbSet<Area> Areas { get; set; }
@@ -21,8 +21,9 @@ namespace WEBCOREBCC2021.Models
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new AgricultorMap());
-   
+            builder.ApplyConfiguration(new AreaMap());
+            builder.ApplyConfiguration(new InsumoMap());
+            builder.ApplyConfiguration(new InsumoAreaMap());
         }
-
     }
 }
