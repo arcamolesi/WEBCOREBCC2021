@@ -10,22 +10,22 @@ using WEBCOREBCC2021.Models.Dominio;
 
 namespace WEBCOREBCC2021.Controllers
 {
-    public class AgricultoresController : Controller
+    public class InsumosController : Controller
     {
         private readonly Contexto _context;
 
-        public AgricultoresController(Contexto context)
+        public InsumosController(Contexto context)
         {
             _context = context;
         }
 
-        // GET: Agricultores
+        // GET: Insumos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Agricultores.ToListAsync());
+            return View(await _context.Insumos.ToListAsync());
         }
 
-        // GET: Agricultores/Details/5
+        // GET: Insumos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace WEBCOREBCC2021.Controllers
                 return NotFound();
             }
 
-            var agricultor = await _context.Agricultores
+            var insumo = await _context.Insumos
                 .FirstOrDefaultAsync(m => m.id == id);
-            if (agricultor == null)
+            if (insumo == null)
             {
                 return NotFound();
             }
 
-            return View(agricultor);
+            return View(insumo);
         }
 
-        // GET: Agricultores/Create
+        // GET: Insumos/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Agricultores/Create
+        // POST: Insumos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,proprietario,bairro,municipio,idade,email,cpf")] Agricultor agricultor)
+        public async Task<IActionResult> Create([Bind("id,descricao,tipoinsumo,quantidade,valor")] Insumo insumo)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(agricultor);
+                _context.Add(insumo);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(agricultor);
+            return View(insumo);
         }
 
-        // GET: Agricultores/Edit/5
+        // GET: Insumos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace WEBCOREBCC2021.Controllers
                 return NotFound();
             }
 
-            var agricultor = await _context.Agricultores.FindAsync(id);
-            if (agricultor == null)
+            var insumo = await _context.Insumos.FindAsync(id);
+            if (insumo == null)
             {
                 return NotFound();
             }
-            return View(agricultor);
+            return View(insumo);
         }
 
-        // POST: Agricultores/Edit/5
+        // POST: Insumos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,proprietario,bairro,municipio,idade,email,cpf")] Agricultor agricultor)
+        public async Task<IActionResult> Edit(int id, [Bind("id,descricao,tipoinsumo,quantidade,valor")] Insumo insumo)
         {
-            if (id != agricultor.id)
+            if (id != insumo.id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace WEBCOREBCC2021.Controllers
             {
                 try
                 {
-                    _context.Update(agricultor);
+                    _context.Update(insumo);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AgricultorExists(agricultor.id))
+                    if (!InsumoExists(insumo.id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace WEBCOREBCC2021.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(agricultor);
+            return View(insumo);
         }
 
-        // GET: Agricultores/Delete/5
+        // GET: Insumos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,38 +124,30 @@ namespace WEBCOREBCC2021.Controllers
                 return NotFound();
             }
 
-            var agricultor = await _context.Agricultores
+            var insumo = await _context.Insumos
                 .FirstOrDefaultAsync(m => m.id == id);
-            if (agricultor == null)
+            if (insumo == null)
             {
                 return NotFound();
             }
 
-            return View(agricultor);
+            return View(insumo);
         }
 
-        // POST: Agricultores/Delete/5
+        // POST: Insumos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var agricultor = await _context.Agricultores.FindAsync(id);
-            _context.Agricultores.Remove(agricultor);
+            var insumo = await _context.Insumos.FindAsync(id);
+            _context.Insumos.Remove(insumo);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AgricultorExists(int id)
+        private bool InsumoExists(int id)
         {
-            return _context.Agricultores.Any(e => e.id == id);
-        }
-
-        public ActionResult ValidarCPF(string cpf)
-        {
-            var cpfExiste = _context.Agricultores.Where(agr => agr.cpf == cpf).Count() == 0;
-            
-            
-            return Json(cpfExiste); 
+            return _context.Insumos.Any(e => e.id == id);
         }
     }
 }

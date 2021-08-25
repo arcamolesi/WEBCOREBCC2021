@@ -17,12 +17,13 @@ namespace WEBCOREBCC2021.Models.Dominio
         public int id { get; set; }
 
         [Display(Name = "ID")]
-        public Area area { get; set; }
-        public int areaID { get; set; }
+        public Area area { get; set; }  // objeto aplicação
+        //[ForeignKey("Area")]
+        public int areaID { get; set; } // usado pelo banco para relacionamento 
 
         [Display(Name = "ID")]
-        public Insumo insumo { get; set; }
-        public int insumoID { get; set; }
+        public Insumo insumo { get; set; } //objeto trabalhar em memória, na app
+        public int insumoID { get; set; } //usado no banco como chave estrangeira
 
         [Display(Name = "Quantidade")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy")]

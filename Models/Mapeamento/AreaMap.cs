@@ -20,7 +20,7 @@ namespace WEBCOREBCC2021.Models.Mapeamento
             builder.Property(p => p.gps).HasColumnType("int");
 
             builder.HasOne(p => p.produtor).WithMany(p => p.areas).HasForeignKey(p => p.produtorID).OnDelete(DeleteBehavior.NoAction);
-
+          
             builder.ToTable("Areas");
         }
     }

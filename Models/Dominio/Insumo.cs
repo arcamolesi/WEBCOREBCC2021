@@ -35,6 +35,7 @@ namespace WEBCOREBCC2021.Models.Dominio
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public float valor { get; set; }
 
+        //lista de areas onde o insumo é utilizado - memória
         public ICollection<InsumoArea> areasinsumo { get; set; }
 
     }

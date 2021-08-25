@@ -10,22 +10,23 @@ using WEBCOREBCC2021.Models.Dominio;
 
 namespace WEBCOREBCC2021.Controllers
 {
-    public class AgricultoresController : Controller
+    public class AreasController : Controller
     {
         private readonly Contexto _context;
 
-        public AgricultoresController(Contexto context)
+        public AreasController(Contexto context)
         {
             _context = context;
         }
 
-        // GET: Agricultores
+        // GET: Areas
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Agricultores.ToListAsync());
+            var contexto = _context.Areas.Include(a => a.produtor);
+            return View(await contexto.ToListAsync());
         }
 
-        // GET: Agricultores/Details/5
+        // GET: Areas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +34,42 @@ namespace WEBCOREBCC2021.Controllers
                 return NotFound();
             }
 
-            var agricultor = await _context.Agricultores
+            var area = await _context.Areas
+                .Include(a => a.produtor)
                 .FirstOrDefaultAsync(m => m.id == id);
-            if (agricultor == null)
+            if (area == null)
             {
                 return NotFound();
             }
 
-            return View(agricultor);
+            return View(area);
         }
 
-        // GET: Agricultores/Create
+        // GET: Areas/Create
         public IActionResult Create()
         {
+            ViewData["produtorID"] = new SelectList(_context.Agricultores, "id", "bairro");
             return View();
         }
 
-        // POST: Agricultores/Create
+        // POST: Areas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,proprietario,bairro,municipio,idade,email,cpf")] Agricultor agricultor)
+        public async Task<IActionResult> Create([Bind("id,produtorID,hectares,bairro,municipio,gps")] Area area)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(agricultor);
+                _context.Add(area);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(agricultor);
+            ViewData["produtorID"] = new SelectList(_context.Agricultores, "id", "bairro", area.produtorID);
+            return View(area);
         }
 
-        // GET: Agricultores/Edit/5
+        // GET: Areas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +77,23 @@ namespace WEBCOREBCC2021.Controllers
                 return NotFound();
             }
 
-            var agricultor = await _context.Agricultores.FindAsync(id);
-            if (agricultor == null)
+            var area = await _context.Areas.FindAsync(id);
+            if (area == null)
             {
                 return NotFound();
             }
-            return View(agricultor);
+            ViewData["produtorID"] = new SelectList(_context.Agricultores, "id", "bairro", area.produtorID);
+            return View(area);
         }
 
-        // POST: Agricultores/Edit/5
+        // POST: Areas/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,proprietario,bairro,municipio,idade,email,cpf")] Agricultor agricultor)
+        public async Task<IActionResult> Edit(int id, [Bind("id,produtorID,hectares,bairro,municipio,gps")] Area area)
         {
-            if (id != agricultor.id)
+            if (id != area.id)
             {
                 return NotFound();
             }
@@ -97,12 +102,12 @@ namespace WEBCOREBCC2021.Controllers
             {
                 try
                 {
-                    _context.Update(agricultor);
+                    _context.Update(area);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AgricultorExists(agricultor.id))
+                    if (!AreaExists(area.id))
                     {
                         return NotFound();
                     }
@@ -113,10 +118,11 @@ namespace WEBCOREBCC2021.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(agricultor);
+            ViewData["produtorID"] = new SelectList(_context.Agricultores, "id", "bairro", area.produtorID);
+            return View(area);
         }
 
-        // GET: Agricultores/Delete/5
+        // GET: Areas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,38 +130,31 @@ namespace WEBCOREBCC2021.Controllers
                 return NotFound();
             }
 
-            var agricultor = await _context.Agricultores
+            var area = await _context.Areas
+                .Include(a => a.produtor)
                 .FirstOrDefaultAsync(m => m.id == id);
-            if (agricultor == null)
+            if (area == null)
             {
                 return NotFound();
             }
 
-            return View(agricultor);
+            return View(area);
         }
 
-        // POST: Agricultores/Delete/5
+        // POST: Areas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var agricultor = await _context.Agricultores.FindAsync(id);
-            _context.Agricultores.Remove(agricultor);
+            var area = await _context.Areas.FindAsync(id);
+            _context.Areas.Remove(area);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AgricultorExists(int id)
+        private bool AreaExists(int id)
         {
-            return _context.Agricultores.Any(e => e.id == id);
-        }
-
-        public ActionResult ValidarCPF(string cpf)
-        {
-            var cpfExiste = _context.Agricultores.Where(agr => agr.cpf == cpf).Count() == 0;
-            
-            
-            return Json(cpfExiste); 
+            return _context.Areas.Any(e => e.id == id);
         }
     }
 }

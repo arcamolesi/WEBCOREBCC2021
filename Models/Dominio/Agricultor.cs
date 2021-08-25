@@ -44,7 +44,7 @@ namespace WEBCOREBCC2021.Models.Dominio
 
         [Display(Name ="CPF")]
         [StringLength(14, ErrorMessage ="Não aceita CPF com mais de 14 dígitos")]
-        [Remote("ValidarCPF", "Agricultores", ErrorMessage ="CPF Inválido!!!")]
+        [Remote("ValidarCPF", "Agricultores", ErrorMessage ="CPF Duplicado!!!")]
         public string cpf { get; set; }
 
         public ICollection<Area> areas { get; set; }

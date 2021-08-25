@@ -18,6 +18,7 @@ namespace WEBCOREBCC2021.Models.Dominio
 
         [Display(Name = "Produtor Rural")]
         public Agricultor produtor { get; set; }
+        [ForeignKey("Agricultor")]
         public int produtorID { get; set; }
 
         [Display(Name ="Hectares")]
