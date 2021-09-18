@@ -46,6 +46,16 @@ namespace WEBCOREBCC2021.Controllers
         // GET: Insumos/Create
         public IActionResult Create()
         {
+            var tInsumo = Enum.GetValues(typeof(TipoInsumo))
+                                .Cast<TipoInsumo>()
+                                .Select(e => new SelectListItem
+                                {
+                                    Value = e.ToString(),
+                                    Text = e.ToString()
+                                });
+
+            ViewBag.tInsumo = tInsumo;
+
             return View();
         }
 
@@ -62,6 +72,17 @@ namespace WEBCOREBCC2021.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            var tInsumo = Enum.GetValues(typeof(TipoInsumo))
+                                .Cast<TipoInsumo>()
+                                .Select(e => new SelectListItem
+                                {
+                                    Value = e.ToString(),
+                                    Text = e.ToString()
+                                });
+
+            ViewBag.tInsumo = tInsumo;
+
             return View(insumo);
         }
 
@@ -78,6 +99,18 @@ namespace WEBCOREBCC2021.Controllers
             {
                 return NotFound();
             }
+
+            var tInsumo = Enum.GetValues(typeof(TipoInsumo))
+                               .Cast<TipoInsumo>()
+                               .Select(e => new SelectListItem
+                               {
+                                   Value = e.ToString(),
+                                   Text = e.ToString()
+                               });
+
+            ViewBag.tInsumo = tInsumo;
+
+
             return View(insumo);
         }
 
@@ -113,6 +146,17 @@ namespace WEBCOREBCC2021.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            var tInsumo = Enum.GetValues(typeof(TipoInsumo))
+                               .Cast<TipoInsumo>()
+                               .Select(e => new SelectListItem
+                               {
+                                   Value = e.ToString(),
+                                   Text = e.ToString()
+                               });
+
+            ViewBag.tInsumo = tInsumo;
+
             return View(insumo);
         }
 

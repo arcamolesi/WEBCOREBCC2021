@@ -19,10 +19,11 @@ namespace WEBCOREBCC2021.Models.Dominio
         [Display(Name = "Produtor Rural")]
         public Agricultor produtor { get; set; }
         [ForeignKey("Agricultor")]
+        [Display(Name = "Produtor Rural")]
         public int produtorID { get; set; }
 
         [Display(Name ="Hectares")]
-        [DisplayFormat(DataFormatString ="0:F2", ApplyFormatInEditMode =true)]
+        //[DisplayFormat(DataFormatString ="0:F2", ApplyFormatInEditMode =true)]
         public float hectares { get; set; }
 
         [StringLength(25, ErrorMessage = "Tamanho de nome do bairro inválido - 25")]

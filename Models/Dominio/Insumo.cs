@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 namespace WEBCOREBCC2021.Models.Dominio
 {
     public enum TipoInsumo {Defensivo, Adubo, Semente, Herbicida, Lubrificante, Combustível }
-   
+  
     public class Insumo
     {
-        public enum TipoInsumo { Adubo, Semente, Combustivel, Lubrificante, Herbicida, Inseticida, Outros }
+        public enum TipoInsumo { Adubo, Semente, Combustivel, Lubrificante, Herbicida, Inseticida, Inoculante, Maquina, Implemento, Outros }
 
         [Key]
         [Display(Name = "ID")]
@@ -26,7 +26,6 @@ namespace WEBCOREBCC2021.Models.Dominio
         [Display(Name = "Tipo Insumo")]
         public TipoInsumo tipoinsumo { get; set; }
 
-
         [Display(Name = "Quantidade")]
         [DisplayFormat(DataFormatString = "{0:F2}")]
         public float quantidade { get; set; }
@@ -34,6 +33,21 @@ namespace WEBCOREBCC2021.Models.Dominio
         [Display(Name = "Valor")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public float valor { get; set; }
+
+        [NotMapped]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        [Display(Name = "Total")]
+        public virtual float total
+        {
+            get { return (float)(this.quantidade * this.valor); }
+        }
+
+        [NotMapped]
+        [Display(Name = "Status")]
+        public virtual string situacaoEstoque
+        {
+            get { return (this.quantidade < 10) ? "Baixo" : "OK";  }
+        }
 
         //lista de areas onde o insumo é utilizado - memória
         public ICollection<InsumoArea> areasinsumo { get; set; }

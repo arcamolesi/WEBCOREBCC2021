@@ -42,12 +42,14 @@ namespace WEBCOREBCC2021.Models.Dominio
         [RegularExpression("^[a-zA-Z0-9_+-]+[a-zA-Z0-9._+-]*[a-zA-Z0-9_+-]+@[a-zA-Z0-9_+-]+[a-zA-Z0-9._+-]*[.]{1,1}[a-zA-Z]{2,}$", ErrorMessage = "Email invalido")]
         public string email { get; set; }
 
-        [Display(Name ="CPF")]
-        [StringLength(14, ErrorMessage ="Não aceita CPF com mais de 14 dígitos")]
-        [Remote("ValidarCPF", "Agricultores", ErrorMessage ="CPF Duplicado!!!")]
+        [Display(Name = "CPF")]
+        [StringLength(14, ErrorMessage = "Não aceita CPF com mais de 14 dígitos")]
+        [Remote("ValidarCPF", "Agricultores", ErrorMessage = "CPF Duplicado!!!")]
         public string cpf { get; set; }
 
         public ICollection<Area> areas { get; set; }
 
+
     }
+
 }

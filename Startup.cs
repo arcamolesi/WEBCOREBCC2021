@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using WEBCOREBCC2021.Models;
@@ -35,6 +36,17 @@ namespace WEBCOREBCC2021
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //var cultureInfo = new CultureInfo("en-US");
+            //cultureInfo.NumberFormat.NumberGroupSeparator = ".";
+
+            var cultureInfo = new CultureInfo("pt-BR");
+            cultureInfo.NumberFormat.NumberGroupSeparator = ",";
+          
+
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -23,13 +23,23 @@
                 @Html.DisplayNameFor(model => model.quantidade)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.situacaoEstoque)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.valor)
             </th>
-            <th></th>
+
+            <th>
+                @*<th>Total</th>*@
+                @Html.DisplayNameFor(model => model.total)
+            </th>
+            <th>Operações</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @{ float totalGeral = 0;}
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.descricao)
@@ -41,14 +51,32 @@
                 @Html.DisplayFor(modelItem => item.quantidade)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.situacaoEstoque)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.valor)
             </td>
+            <td>
+                @*@{ float total = item.quantidade * item.valor;
+                    totalGeral = totalGeral + total;
+                 }
+            <h5>@total</h5>*@
+
+                @Html.DisplayFor(modelItem => item.total)
+                @{
+                    totalGeral = totalGeral + item.quantidade * item.valor;
+                }
+            </td>
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
             </td>
         </tr>
-}
+
+        }
     </tbody>
 </table>
+<hr />
+<h1>Total: R$@totalGeral.ToString("F2")</h1>

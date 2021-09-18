@@ -10,23 +10,23 @@ using WEBCOREBCC2021.Models.Dominio;
 
 namespace WEBCOREBCC2021.Controllers
 {
-    public class InsumosAreasController : Controller
+    public class InsumoAreasController : Controller
     {
         private readonly Contexto _context;
 
-        public InsumosAreasController(Contexto context)
+        public InsumoAreasController(Contexto context)
         {
             _context = context;
         }
 
-        // GET: InsumosAreas
+        // GET: InsumoAreas
         public async Task<IActionResult> Index()
         {
             var contexto = _context.InsumosArea.Include(i => i.area).Include(i => i.insumo);
             return View(await contexto.ToListAsync());
         }
 
-        // GET: InsumosAreas/Details/5
+        // GET: InsumoAreas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,7 +46,7 @@ namespace WEBCOREBCC2021.Controllers
             return View(insumoArea);
         }
 
-        // GET: InsumosAreas/Create
+        // GET: InsumoAreas/Create
         public IActionResult Create()
         {
             ViewData["areaID"] = new SelectList(_context.Areas, "id", "bairro");
@@ -54,7 +54,7 @@ namespace WEBCOREBCC2021.Controllers
             return View();
         }
 
-        // POST: InsumosAreas/Create
+        // POST: InsumoAreas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -72,7 +72,7 @@ namespace WEBCOREBCC2021.Controllers
             return View(insumoArea);
         }
 
-        // GET: InsumosAreas/Edit/5
+        // GET: InsumoAreas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -90,7 +90,7 @@ namespace WEBCOREBCC2021.Controllers
             return View(insumoArea);
         }
 
-        // POST: InsumosAreas/Edit/5
+        // POST: InsumoAreas/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -127,7 +127,7 @@ namespace WEBCOREBCC2021.Controllers
             return View(insumoArea);
         }
 
-        // GET: InsumosAreas/Delete/5
+        // GET: InsumoAreas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -147,7 +147,7 @@ namespace WEBCOREBCC2021.Controllers
             return View(insumoArea);
         }
 
-        // POST: InsumosAreas/Delete/5
+        // POST: InsumoAreas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

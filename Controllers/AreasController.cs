@@ -48,7 +48,7 @@ namespace WEBCOREBCC2021.Controllers
         // GET: Areas/Create
         public IActionResult Create()
         {
-            ViewData["produtorID"] = new SelectList(_context.Agricultores, "id", "bairro");
+            ViewData["produtorID"] = new SelectList(_context.Agricultores, "id", "proprietario");
             return View();
         }
 

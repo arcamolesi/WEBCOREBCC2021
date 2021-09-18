@@ -26,7 +26,7 @@ namespace WEBCOREBCC2021.Models.Dominio
         public int insumoID { get; set; } //usado no banco como chave estrangeira
 
         [Display(Name = "Quantidade")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy")]
+       // [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy")]
         public DateTime data { get; set; }
 
         [Display(Name = "Quantidade")]

@@ -1,11 +1,11 @@
-﻿@model IEnumerable<WEBCOREBCC2021.Models.Dominio.Area>
+﻿@model IEnumerable<WEBCOREBCC2021.Models.Dominio.Insumo>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "gerarInsumos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>gerarInsumos</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -14,19 +14,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.produtor)
+                @Html.DisplayNameFor(model => model.descricao)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.hectares)
+                @Html.DisplayNameFor(model => model.tipoinsumo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.bairro)
+                @Html.DisplayNameFor(model => model.quantidade)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.municipio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.gps)
+                @Html.DisplayNameFor(model => model.valor)
             </th>
             <th></th>
         </tr>
@@ -35,19 +32,16 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.produtor.proprietario)
+                @Html.DisplayFor(modelItem => item.descricao)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.hectares)
+                @Html.DisplayFor(modelItem => item.tipoinsumo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.bairro)
+                @Html.DisplayFor(modelItem => item.quantidade)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.municipio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.gps)
+                @Html.DisplayFor(modelItem => item.valor)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
