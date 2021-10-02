@@ -1,0 +1,66 @@
+﻿@model IEnumerable<WEBCOREBCC2021.Models.Consultas.Itens>
+
+@{
+    ViewData["Title"] = "ListarItensInsumoArea";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>ListarItensInsumoArea</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.agricultor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.bairroArea)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.hectares)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.insumo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.quantidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.valor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.total)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.agricultor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bairroArea)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.hectares)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.insumo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.quantidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.valor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.total)
+            </td>
+           
+        </tr>
+}
+    </tbody>
+</table>

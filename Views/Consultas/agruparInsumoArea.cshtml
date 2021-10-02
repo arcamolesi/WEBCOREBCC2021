@@ -1,0 +1,43 @@
+﻿@model IEnumerable<WEBCOREBCC2021.Models.Consultas.InsumosGrp>
+
+@{
+    ViewData["Title"] = "agruparInsumoArea";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>agruparInsumoArea</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.agricultor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.area)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.total)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.agricultor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.area)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.total)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

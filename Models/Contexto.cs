@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WEBCOREBCC2021.Models.Dominio;
 using WEBCOREBCC2021.Models.Mapeamento;
+using WEBCOREBCC2021.Models.Consultas;
 
 namespace WEBCOREBCC2021.Models
 {
@@ -26,5 +27,14 @@ namespace WEBCOREBCC2021.Models
             builder.ApplyConfiguration(new InsumoMap());
             builder.ApplyConfiguration(new InsumoAreaMap());
         }
+
+
+        public DbSet<WEBCOREBCC2021.Models.Consultas.PivotInsumoArea> PivotInsumoArea { get; set; }
+
+
+        //public DbSet<WEBCOREBCC2021.Models.Consultas.Itens> Itens { get; set; }
+
+
+        //public DbSet<WEBCOREBCC2021.Models.Consultas.InsumosGrp> InsumosGrp { get; set; }
     }
 }
